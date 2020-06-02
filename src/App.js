@@ -58,6 +58,7 @@ function App() {
       .then((response) => setFaceBoxes(calculateFaceLocation(response)))
       .catch((err) => console.log('error:::', err));
   };
+  // console.log('FaceBoxes::', faceBoxes);
 
   return (
     <div className='App'>
@@ -69,7 +70,7 @@ function App() {
         onInputChange={onInputChange}
         onButtonSubmit={onButtonSubmit}
       />
-      <FaceRecognition imageUrl={imageUrl} />
+      <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
     </div>
   );
 }
