@@ -23,6 +23,29 @@ const particlesOptions = {
 function App() {
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [faceBoxes, setFaceBoxes] = useState([]);
+
+  const calculateFaceLocation = (data) => {
+    let faceArray = data.outputs[0].data.regions.map(
+      (item) => item.region_info.bounding_box
+    );
+
+    const image = document.getElementById('input-image');
+    const width = Number(image.width);
+    const height = Number(image.height);
+    // console.log(width, height);
+    // console.log(faceArray);
+    let faceBoxArray = faceArray.map((face) => {
+      return {
+        leftCol: face.left_col * width,
+        topRow: face.top_row * height,
+        rightCol: width - face.right_col * width,
+        bottomRow: height - face.bottom_row * height,
+      };
+    });
+    // console.log(faceBoxArray);
+    return faceBoxArray;
+  };
 
   const onInputChange = (event) => {
     setInput(event.target.value);
@@ -30,19 +53,10 @@ function App() {
 
   const onButtonSubmit = () => {
     setImageUrl(input);
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, input).then(
-      function (response) {
-        // do something with response
-        console.log(
-          'response:::',
-          response.outputs[0].data.regions[0].region_info.bounding_box
-        );
-      },
-      function (err) {
-        // there was an error
-        console.log('error', err);
-      }
-    );
+    app.models
+      .predict(Clarifai.FACE_DETECT_MODEL, input)
+      .then((response) => setFaceBoxes(calculateFaceLocation(response)))
+      .catch((err) => console.log('error:::', err));
   };
 
   return (
