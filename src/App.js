@@ -5,6 +5,9 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Navigation from './components/Navigation/Navigation';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-particles-js';
+import Clarifai from 'clarifai';
+
+const app = new Clarifai.App({ apiKey: process.env.REACT_APP_FACECATCH_KEY });
 
 const particlesOptions = {
   particles: {
@@ -24,7 +27,23 @@ function App() {
   };
 
   const onButtonSubmit = () => {
-    console.log(input);
+    console.log(app);
+
+    app.models
+      .predict(
+        'a403429f2ddf4b49b307e318f00e528b',
+        input || 'https://samples.clarifai.com/face-det.jpg'
+      )
+      .then(
+        function (response) {
+          // do something with response
+          console.log('response:::', response);
+        },
+        function (err) {
+          // there was an error
+          console.log('error', err);
+        }
+      );
   };
 
   return (
