@@ -22,27 +22,27 @@ const particlesOptions = {
 
 function App() {
   const [input, setInput] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const onInputChange = (event) => {
     setInput(event.target.value);
   };
 
   const onButtonSubmit = () => {
-    app.models
-      .predict(
-        'a403429f2ddf4b49b307e318f00e528b',
-        input || 'https://samples.clarifai.com/face-det.jpg'
-      )
-      .then(
-        function (response) {
-          // do something with response
-          console.log('response:::', response);
-        },
-        function (err) {
-          // there was an error
-          console.log('error', err);
-        }
-      );
+    setImageUrl(input);
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, input).then(
+      function (response) {
+        // do something with response
+        console.log(
+          'response:::',
+          response.outputs[0].data.regions[0].region_info.bounding_box
+        );
+      },
+      function (err) {
+        // there was an error
+        console.log('error', err);
+      }
+    );
   };
 
   return (
@@ -55,7 +55,7 @@ function App() {
         onInputChange={onInputChange}
         onButtonSubmit={onButtonSubmit}
       />
-      <FaceRecognition inputImage={input} />
+      <FaceRecognition imageUrl={imageUrl} />
     </div>
   );
 }
