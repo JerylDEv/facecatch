@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Logo from './components/Logo/Logo';
+import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Navigation from './components/Navigation/Navigation';
 
 function App() {
@@ -8,9 +9,8 @@ function App() {
     <div className='App'>
       <Navigation />
       <Logo />
-      {/* {   
       <ImageLinkForm />
-      <FaceRecognition />} */}
+      {/* <FaceRecognition /> */}
     </div>
   );
 }
