@@ -25,6 +25,11 @@ function App() {
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [faceBoxes, setFaceBoxes] = useState([]);
+  const [route, setRoute] = useState('signin');
+
+  const onRouteChange = () => {
+    setRoute('home');
+  };
 
   const calculateFaceLocation = (data) => {
     let faceArray = data.outputs[0].data.regions.map(
@@ -63,14 +68,19 @@ function App() {
     <div className='App'>
       <Particles className='particles' params={particlesOptions} />
       <Navigation />
-      <Signin />
-      <Logo />
-      <Rank />
-      <ImageLinkForm
-        onInputChange={onInputChange}
-        onButtonSubmit={onButtonSubmit}
-      />
-      <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
+      {route === 'signin' ? (
+        <Signin onRouteChange={onRouteChange} />
+      ) : (
+        <div>
+          <Logo />
+          <Rank />
+          <ImageLinkForm
+            onInputChange={onInputChange}
+            onButtonSubmit={onButtonSubmit}
+          />
+          <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
+        </div>
+      )}
     </div>
   );
 }
