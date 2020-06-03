@@ -6,6 +6,7 @@ import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Rank from './components/Rank/Rank';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import Particles from 'react-particles-js';
 // import Clarifai from 'clarifai';
 const Clarifai = require('clarifai');
@@ -27,8 +28,8 @@ function App() {
   const [faceBoxes, setFaceBoxes] = useState([]);
   const [route, setRoute] = useState('signin');
 
-  const onRouteChange = () => {
-    setRoute('home');
+  const onRouteChange = (route) => {
+    setRoute(route);
   };
 
   const calculateFaceLocation = (data) => {
@@ -67,10 +68,8 @@ function App() {
   return (
     <div className='App'>
       <Particles className='particles' params={particlesOptions} />
-      <Navigation />
-      {route === 'signin' ? (
-        <Signin onRouteChange={onRouteChange} />
-      ) : (
+      <Navigation onRouteChange={onRouteChange} />
+      {route === 'home' ? (
         <div>
           <Logo />
           <Rank />
@@ -80,6 +79,10 @@ function App() {
           />
           <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
         </div>
+      ) : route === 'signin' ? (
+        <Signin onRouteChange={onRouteChange} />
+      ) : (
+        <Register onRouteChange={onRouteChange} />
       )}
     </div>
   );
