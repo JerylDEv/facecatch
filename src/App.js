@@ -5,6 +5,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Rank from './components/Rank/Rank';
+import Signin from './components/Signin/Signin';
 import Particles from 'react-particles-js';
 // import Clarifai from 'clarifai';
 const Clarifai = require('clarifai');
@@ -35,7 +36,7 @@ function App() {
     const height = Number(image.height);
     // console.log(width, height);
     // console.log(faceArray);
-    let faceBoxArray = faceArray.map((face) => {
+    return faceArray.map((face) => {
       return {
         leftCol: face.left_col * width,
         topRow: face.top_row * height,
@@ -43,8 +44,6 @@ function App() {
         bottomRow: height - face.bottom_row * height,
       };
     });
-    // console.log(faceBoxArray);
-    return faceBoxArray;
   };
 
   const onInputChange = (event) => {
@@ -64,6 +63,7 @@ function App() {
     <div className='App'>
       <Particles className='particles' params={particlesOptions} />
       <Navigation />
+      <Signin />
       <Logo />
       <Rank />
       <ImageLinkForm
