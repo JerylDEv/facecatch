@@ -29,13 +29,11 @@ function App() {
   const [route, setRoute] = useState('signin');
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userProfile, setUserProfile] = useState({
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      entries: 0,
-      joined: '',
-    },
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: '',
   });
 
   const onRouteChange = (route) => {
@@ -71,24 +69,31 @@ function App() {
     setInput(event.target.value);
   };
 
-  const onButtonSubmit = () => {
+  const onPictureSubmit = () => {
     setImageUrl(input);
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, input)
-      .then((response) => setFaceBoxes(calculateFaceLocation(response)))
+      .then((response) => {
+        setFaceBoxes(calculateFaceLocation(response));
+        fetch('http://localhost:4000/image', {
+          method: 'put',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: userProfile.id }),
+        })
+          .then((response) => response.json())
+          .then((count) => setUserProfile({ ...userProfile, entries: count }));
+      })
       .catch((err) => console.log('error:::', err));
   };
   // console.log('FaceBoxes::', faceBoxes);
 
   const loadUser = (data) => {
     setUserProfile({
-      user: {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        entries: data.entries,
-        joined: data.joined,
-      },
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined,
     });
   };
   console.log('userProfile::', userProfile);
@@ -100,13 +105,10 @@ function App() {
       {route === 'home' ? (
         <div>
           <Logo />
-          <Rank
-            name={userProfile.user.name}
-            entries={userProfile.user.entries}
-          />
+          <Rank name={userProfile.name} entries={userProfile.entries} />
           <ImageLinkForm
             onInputChange={onInputChange}
-            onButtonSubmit={onButtonSubmit}
+            onPictureSubmit={onPictureSubmit}
           />
           <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
         </div>
