@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -28,12 +28,15 @@ function App() {
   const [faceBoxes, setFaceBoxes] = useState([]);
   const [route, setRoute] = useState('signin');
   const [isSignedIn, setIsSignedIn] = useState(false);
-
-  // useEffect(() => {
-  //   fetch('http://localhost:4000/')
-  //     .then((response) => response.json())
-  //     .then(console.log);
-  // });
+  const [userProfile, setUserProfile] = useState({
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      entries: 0,
+      joined: '',
+    },
+  });
 
   const onRouteChange = (route) => {
     if (route === 'signout') {
@@ -77,6 +80,19 @@ function App() {
   };
   // console.log('FaceBoxes::', faceBoxes);
 
+  const loadUser = (data) => {
+    setUserProfile({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      },
+    });
+  };
+  console.log('userProfile::', userProfile);
+
   return (
     <div className='App'>
       <Particles className='particles' params={particlesOptions} />
@@ -84,7 +100,10 @@ function App() {
       {route === 'home' ? (
         <div>
           <Logo />
-          <Rank />
+          <Rank
+            name={userProfile.user.name}
+            entries={userProfile.user.entries}
+          />
           <ImageLinkForm
             onInputChange={onInputChange}
             onButtonSubmit={onButtonSubmit}
@@ -92,9 +111,9 @@ function App() {
           <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
         </div>
       ) : route === 'signin' ? (
-        <Signin onRouteChange={onRouteChange} />
+        <Signin onRouteChange={onRouteChange} loadUser={loadUser} />
       ) : (
-        <Register onRouteChange={onRouteChange} />
+        <Register onRouteChange={onRouteChange} loadUser={loadUser} />
       )}
     </div>
   );
