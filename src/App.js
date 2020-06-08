@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -28,6 +28,12 @@ function App() {
   const [faceBoxes, setFaceBoxes] = useState([]);
   const [route, setRoute] = useState('signin');
   const [isSignedIn, setIsSignedIn] = useState(false);
+
+  // useEffect(() => {
+  //   fetch('http://localhost:4000/')
+  //     .then((response) => response.json())
+  //     .then(console.log);
+  // });
 
   const onRouteChange = (route) => {
     if (route === 'signout') {
