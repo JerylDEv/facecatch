@@ -74,7 +74,6 @@ function App() {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, input)
       .then((response) => {
-        setFaceBoxes(calculateFaceLocation(response));
         fetch('http://localhost:4000/image', {
           method: 'put',
           headers: { 'Content-Type': 'application/json' },
@@ -82,6 +81,7 @@ function App() {
         })
           .then((response) => response.json())
           .then((count) => setUserProfile({ ...userProfile, entries: count }));
+        return setFaceBoxes(calculateFaceLocation(response));
       })
       .catch((err) => console.log('error:::', err));
   };
