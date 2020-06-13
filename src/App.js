@@ -38,7 +38,9 @@ function App() {
   const onRouteChange = (route) => {
     if (route === 'signout') {
       setIsSignedIn(false);
+      setInput('');
       setImageUrl('');
+      setFaceBoxes([]);
     } else if (route === 'home') {
       setIsSignedIn(true);
     }

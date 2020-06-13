@@ -6,7 +6,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
   if (isSignedIn) {
     return (
       <nav
-        class='dt w-100 border-box pa3 ph5-ns'
+        className='dt w-100 border-box pa3 ph5-ns'
         style={{ display: 'flex', justifyContent: 'space-between' }}
       >
         <Logo />
@@ -21,7 +21,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
   } else {
     return (
       <nav
-        class='dt w-100 border-box ph5-ns'
+        className='dt w-100 border-box ph5-ns'
         style={{ display: 'flex', justifyContent: 'flex-end' }}
       >
         <p
