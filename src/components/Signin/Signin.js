@@ -27,7 +27,7 @@ const Signin = ({ onRouteChange, loadUser }) => {
           loadUser(user);
           onRouteChange('home');
         } else {
-          alert('username or password does not match.');
+          alert('invalid credentials');
         }
       });
   };

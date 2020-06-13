@@ -6,6 +6,7 @@ const FaceRecognition = ({ imageUrl, faceBoxes }) => {
     <div className='center-align-items ma'>
       <div className='absolute mt2'>
         <img
+          hidden={imageUrl === '' ? true : false}
           id='input-image'
           src={imageUrl}
           alt='imageUrl'

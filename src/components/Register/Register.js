@@ -29,11 +29,7 @@ const Register = ({ onRouteChange, loadUser }) => {
     })
       .then((response) => response.json())
       .then((user) => {
-        if (
-          registerName !== '' ||
-          registerEmail !== '' ||
-          registerPassword !== ''
-        ) {
+        if (user.id) {
           loadUser(user);
           onRouteChange('home');
         } else {

@@ -39,6 +39,7 @@ function App() {
   const onRouteChange = (route) => {
     if (route === 'signout') {
       setIsSignedIn(false);
+      setImageUrl('');
     } else if (route === 'home') {
       setIsSignedIn(true);
     }
@@ -53,8 +54,6 @@ function App() {
     const image = document.getElementById('input-image');
     const width = Number(image.width);
     const height = Number(image.height);
-    // console.log(width, height);
-    // console.log(faceArray);
     return faceArray.map((face) => {
       return {
         leftCol: face.left_col * width,
@@ -85,7 +84,6 @@ function App() {
       })
       .catch((err) => console.log('error:::', err));
   };
-  // console.log('FaceBoxes::', faceBoxes);
 
   const loadUser = (data) => {
     setUserProfile({
@@ -96,7 +94,6 @@ function App() {
       joined: data.joined,
     });
   };
-  console.log('userProfile::', userProfile);
 
   return (
     <div className='App'>
