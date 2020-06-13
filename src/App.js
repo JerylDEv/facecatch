@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
@@ -101,7 +100,6 @@ function App() {
       <Navigation isSignedIn={isSignedIn} onRouteChange={onRouteChange} />
       {route === 'home' ? (
         <div>
-          <Logo />
           <Rank name={userProfile.name} entries={userProfile.entries} />
           <ImageLinkForm
             onInputChange={onInputChange}
