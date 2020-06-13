@@ -81,8 +81,11 @@ function App() {
           body: JSON.stringify({ id: userProfile.id }),
         })
           .then((response) => response.json())
-          .then((count) => setUserProfile({ ...userProfile, entries: count }));
-        return setFaceBoxes(calculateFaceLocation(response));
+          .then((count) => {
+            setFaceBoxes(calculateFaceLocation(response));
+            setUserProfile({ ...userProfile, entries: count });
+          });
+        // return setFaceBoxes(calculateFaceLocation(response));
       })
       .catch((err) => console.log('error:::', err));
   };
