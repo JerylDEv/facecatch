@@ -68,7 +68,6 @@ function App() {
   const onPictureSubmit = () => {
     setImageUrl(input);
     setFaceBoxes([]);
-    // fetch('http://localhost:4000/imageurl', {
     fetch('https://arcane-mesa-01478.herokuapp.com/imageurl', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -76,7 +75,6 @@ function App() {
     })
       .then((response) => response.json())
       .then((response) => {
-        // fetch('http://localhost:4000/image', {
         fetch('https://arcane-mesa-01478.herokuapp.com/image', {
           method: 'put',
           headers: { 'Content-Type': 'application/json' },
