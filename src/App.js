@@ -85,7 +85,6 @@ function App() {
             setFaceBoxes(calculateFaceLocation(response));
             setUserProfile({ ...userProfile, entries: count });
           });
-        // return setFaceBoxes(calculateFaceLocation(response));
       })
       .catch((err) => console.log('error:::', err));
   };
