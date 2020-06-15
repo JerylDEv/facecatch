@@ -4,7 +4,7 @@ import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import Navigation from '../components/Navigation/Navigation';
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
 import Rank from '../components/Rank/Rank';
-import Signin from '../components/Signin/Signin';
+import SignIn from '../components/SignIn/SignIn';
 import Register from '../components/Register/Register';
 import Particles from 'react-particles-js';
 
@@ -113,7 +113,7 @@ function App() {
           <FaceRecognition faceBoxes={faceBoxes} imageUrl={imageUrl} />
         </div>
       ) : route === 'signin' ? (
-        <Signin onRouteChange={onRouteChange} loadUser={loadUser} />
+        <SignIn onRouteChange={onRouteChange} loadUser={loadUser} />
       ) : (
         <Register onRouteChange={onRouteChange} loadUser={loadUser} />
       )}
